@@ -1,9 +1,10 @@
 //
-//  StickMan 2.swift
+//  Stickman.swift
 //  Bobby
 //
-//  Created by Hanyi on 2/8/25.
+//  Created by Administrator on 2/8/25.
 //
+
 import SwiftUI
 
 /// Basic stickman
@@ -42,3 +43,4 @@ struct StickMan: Shape {
         return p
     }
 }
+
