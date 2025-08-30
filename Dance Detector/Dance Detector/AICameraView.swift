@@ -130,8 +130,12 @@ class AI_VideoCaptureDelegate: VideoCaptureDelegate {
 
     func videoCapture(_ videoCapture: VideoCapture, didCaptureFrame image: CGImage?) {
         guard let image = image else { return }
-        self.latestFrame = image
-        onFrameCaptured(image)
+        let now = Date()
+        if now.timeIntervalSince(lastPredictionTime) >= predictionInterval {
+            lastPredictionTime = now
+            self.latestFrame = image
+            onFrameCaptured(image)
+        }
     }
 
     func getLatestFrame() -> CGImage? {
