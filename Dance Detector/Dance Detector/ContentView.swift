@@ -1,99 +1,102 @@
-//
-//  ContentView.swift
-//  Dance Detector
-//
-//  Created by Hanyi on 16/8/25.
-//
-
 import SwiftUI
 
 struct ContentView: View {
+    @State private var overallPoints: Int = 0
+    @State private var dances: [String] = ["Gangnam Style", "NDP Song"]
+    
     var body: some View {
-        VStack {
-            HStack {
-                VStack {
-                    HStack {
-                        Text("Recent Dances")
-                            .font(.largeTitle)
-                            .scaledToFit()
-                        
-                    }
-                    .padding()
-                    HStack {
-                        Text("Gangnam Style")
-                        Image(systemName: "play.circle")
-                    }
-                    HStack {
-                        Button {
-                            print("NDP song!")
-                        } label: {
-                            Text("NDP Song")
-                            Image(systemName: "play.circle")
-                        }
-                    }
-                }
-                    .padding()
-                    VStack {
-                        HStack {
-                            Text("Leaderboard")
-                                .font(.largeTitle)
-                        }
-                        .padding()
-                        HStack {
-                            Text("High Score: 100")
-                        }
-                        HStack {
-                            Text("High Score: 70")
-                        }
-                    }
-                }
-            }
+        VStack(spacing: 20) {
             
-                Button {
-                    print("Song?")
-                } label: {
-                    Text("Search")
+            AI_CameraView(overallPoints: $overallPoints)
+            HStack(alignment: .top, spacing: 20) {
+                
+    
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("Recent Dances")
+                        .font(.largeTitle)
+                        .bold()
+                        .padding(.bottom, 5)
+                    
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: 10) {
+                            ForEach(dances, id: \.self) { dance in
+                                HStack {
+                                    Text(dance)
+                                    Spacer()
+                                    Image(systemName: "play.circle")
+                                        .foregroundColor(.blue)
+                                }
+                                .padding(8)
+                                .background(Color.yellow.opacity(0.3))
+                                .cornerRadius(8)
+                            }
+                        }
+                    }
                 }
+                .frame(maxWidth: .infinity)
+                
+
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("Leaderboard")
+                        .font(.largeTitle)
+                        .bold()
+                        .padding(.bottom, 5)
+                    
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("High Score: 100")
+                        Text("High Score: 70")
+                    }
+                    .padding(8)
+                    .background(Color.orange.opacity(0.3))
+                    .cornerRadius(8)
+                }
+                .frame(maxWidth: .infinity)
+            }
+            .padding(.horizontal)
+            
+            Button {
+                print("Search button tapped!")
+            } label: {
+                Text("Search")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.blue)
+                    .cornerRadius(10)
+                    .shadow(color: .gray.opacity(0.5), radius: 5, x: 0, y: 3)
+            }
+            .padding(.horizontal)
+            
+            Text("Overall Points: \(overallPoints)")
+                .frame(maxWidth: .infinity)
                 .padding()
-                .clipShape(.rect(cornerRadius: 10))
-                .shadow(
-                    color: .white.opacity(0.3),
-                    radius: 10,
-                    x: 0.0,
-                    y: 0.0
+                .background(Color.yellow)
+                .cornerRadius(10)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.orange, lineWidth: 2)
                 )
-                .buttonStyle(.borderedProminent)
-        Text("Overall Points: (will be determined with another variable)")
-            .frame(maxWidth: .infinity)
-            .padding()
-            .background(Color.yellow)
-            .cornerRadius(10)
-            .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.orange, lineWidth: 2)
-            )
-            .padding(.horizontal)
-        
-        Text("Song Lyrics: (will add something here later)")
-            .frame(maxWidth: .infinity)
-            .padding()
-            .background(Color.yellow)
-            .cornerRadius(10)
-            .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.green, lineWidth: 2)
-            )
-            .padding(.horizontal)
+                .padding(.horizontal)
             
-        Spacer()
-        Rectangle()
-                    .fill(Color.blue)
-                    .frame(width: 1, height: 1000)
-        Spacer()
-            }
-
+            Text("Song Lyrics: (will add something here later)")
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background(Color.yellow)
+                .cornerRadius(10)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.green, lineWidth: 2)
+                )
+                .padding(.horizontal)
         }
-
+        .padding(.vertical)
+            
+            
+        }
+    }
+    
+}
 #Preview {
     ContentView()
 }
